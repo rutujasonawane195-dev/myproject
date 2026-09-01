@@ -1,17 +1,22 @@
-name: Environment Variables Demo
+name: Node Matrix Build
 
 on:
   push:
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: ["18", "20", "22"]
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Deploy
-        env:
-          TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-        run: |
-          echo "Deploying with token length: ${#TOKEN}"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - run: node --version
