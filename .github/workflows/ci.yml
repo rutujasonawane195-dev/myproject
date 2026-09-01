@@ -1,10 +1,19 @@
-name: First CI
+name: CI
 
-on: push
+on:
+  push:
 
 jobs:
-  greet:
+  lint:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Hello from GitHub Actions!"
+      - run: echo "Lint step running"
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Test step running"
